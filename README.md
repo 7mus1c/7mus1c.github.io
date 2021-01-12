@@ -4,15 +4,15 @@
 
 ## 博客包含但不仅限以下内容:
 
-#### TypeScript
-#### Vue
-#### React
-#### webpack
-#### NodeJs
-#### Linux
-#### Http/Https
-#### 前端性能优化
-#### PHP
-#### 数据库
-#### Docker
-#### kubernetes
+* TypeScript
+* Vue
+* React
+* webpack
+* NodeJs
+* Linux
+* Http/Https
+* 前端性能优化
+* PHP
+* 数据库
+* Docker
+* kubernetes
