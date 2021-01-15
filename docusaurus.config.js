@@ -21,10 +21,10 @@ module.exports = {
         {
           to: 'docs/',
           activeBasePath: 'docs',
-          label: '文档',
+          label: '博客',
           position: 'right',
         },
-        {to: 'blog', label: '博客', position: 'right'},
+        {to: 'blog', label: '算法', position: 'right'},
         {
           href: 'https://github.com/7mus1c',
           label: 'GitHub',
