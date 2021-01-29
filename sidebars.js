@@ -8,7 +8,12 @@ module.exports = {
       "TypeScript/interface",
       "TypeScript/class",
       "TypeScript/function",
+      "TypeScript/generics",
+      "TypeScript/module",
+      "TypeScript/namespce",
+      "TypeScript/decorators",
+      "TypeScript/mixins",
     ],
-    文档2: ["mdx"],
+    HTTP: ["HTTP/http1"],
   },
 };

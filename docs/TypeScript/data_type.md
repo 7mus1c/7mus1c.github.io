@@ -249,7 +249,7 @@ create(false); // error
 ```ts
 let someValue: any = "this is a string";
 // 如果写的是any类型，去找length属性的话，编译器是找不到length属性的
-// 类型断言断言后是可以知道的
+// 类型断言后是可以知道的
 let str: number = (<string>someValue).length;
 
 let someValue: any = "this is a string";
