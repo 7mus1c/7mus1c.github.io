@@ -1,0 +1,1 @@
+import{_ as i,c as e,o as l,N as a}from"./chunks/framework.0799945b.js";const m=JSON.parse('{"title":"一个大龄前端的反卷计划","description":"","frontmatter":{},"headers":[],"relativePath":"blog/index.md"}'),t={name:"blog/index.md"},o=a("",6),r=[o];function n(c,_,s,d,p,h){return l(),e("div",null,r)}const b=i(t,[["render",n]]);export{m as __pageData,b as default};
