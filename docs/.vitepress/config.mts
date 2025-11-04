@@ -75,6 +75,16 @@ export default defineConfig({
           text: "面试题",
           items: [
             { text: "js", link: "/interview/" },
+            { text : "css", link: "/interview/css" },
+            { text: "浏览器", link: "/interview/browser" },
+            { text: "网络", link: "/interview/network" },
+            { text: "vue", link: "/interview/vue" },
+            { text: "react", link: "/interview/react" },
+            { text: "ts", link: "/interview/ts" },
+            { text: "工程化", link: "/interview/engineering" },
+            { text: "算法", link: "/interview/algorithm" },
+            { text: "AI", link: "/interview/ai"},
+            { text: "其他", link: "/interview/other" },
           ]
         }
       ],
