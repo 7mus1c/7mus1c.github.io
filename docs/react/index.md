@@ -1,38 +1,39 @@
+# React基础
 React 相关学习内容 [【中文官网】](https://react.docschina.org/)
 
-# 环境安装
-## 安装淘宝镜像源
+## 环境安装
+### 安装淘宝镜像源
 ```bash
 npm config set registry https://registry.npmmirror.com
 ```
 
-## 环境查看
+### 环境查看
 ```bash
 npm config get registry
 ```
 
 or 
 
-## Nvm 安装
+### Nvm 安装
 [https://nvm.uihtm.com/](https://nvm.uihtm.com/)
 
-## fnm 安装
+### fnm 安装
 [https://github.com/Schniz/fnm](https://github.com/Schniz/fnm)
 
-## Github 无法访问
+### Github 无法访问
 [https://zhuanlan.zhihu.com/p/358183268](https://zhuanlan.zhihu.com/p/358183268)
 
 [https://gitee.com/inChoong/GitHub520](https://zhuanlan.zhihu.com/p/358183268)
 
-## 安装 React
+### 安装 React
 ```bash
 npx create-react-app my-app
 cd my-app
 npm run start
-# 或者使用vite 
+## 或者使用vite 
 ```
 
-# 入口文件
+## 入口文件
 index.js
 
 ```jsx
@@ -55,38 +56,38 @@ root.render(
 reportWebVitals();
 ```
 
-## React 和 react-dom 的区别?
+### React 和 react-dom 的区别?
 1. react：这是 react 的核心，它定义了 react 组件的创建和生命周期方法，以及 react 元素的概念，可以将它视为 react 的引擎。
 2. React-dom：这个库提供了浏览器环境中使用 react 的方法，例如将 react 组件渲染到 Dom 中，或者在 Dom 中触发 React 组件的更新。可以将它视为 react 的驱动程序。
 
-## reportWebVitals 是什么？
+### reportWebVitals 是什么？
 reportWebVitals 是 react 提供的一个性能分析相关的检测工具。
 
-## React.StricMode 是什么？
+### React.StricMode 是什么？
 它是开启 React 的严格模式。
 
-## 严格模式的作用
+### 严格模式的作用
 1. 不安全的生命周期方法：某些生命周期在未来的 React 版本中被弃用。严格模式会警告这些不安全的方法。
 2. 使用过时或遗留的API：严格模式会警告使用过时或遗留的API。
 3. 意外的副作用：严格模式会发现组件中可能的意外副作用。
 4. 与旧版本React不兼容的代码：严格模式会警告代码中可能与未来版本 React 不兼容的部分。
 
-# JSX
+## JSX
 JSX 浏览器是无法识别的，需要经过 [babel](https://babeljs.io/)来编译的。
 
 ![jsx转js](../assets/images/react/babel2jsx.png)
 
-# 组件
+## 组件
 1. class 组件（已被官方推荐遗弃，但是需要学习，为了纯函数式组件做铺垫）
 2. Function 纯函数（官方推荐这种 + Hooks）
 
-## 生命周期
+### 生命周期
 ![生命周期](../assets/images/react/生命周期.png)
 
 > 网址：https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
 
-### react 的生命周期包括三个部分
-### 挂载时：组件实例被创建并插入 DOM 中时
+#### react 的生命周期包括三个部分
+#### 挂载时：组件实例被创建并插入 DOM 中时
     1. constructor：类的构造函数，挂载之前就执行
     2. getDerivedStateFromProps：它是一个静态方法，在使用它之前需要在构造函数中定义`this.state`。它会在 render 之前执行，在挂载时和更新时都会被调用。它返回一个对象来更新 state，如果返回 null 则不更新。所以也可以理解为这个是渲染之前的拦截，可以改变下一次渲染的 state 的内容。
     3. render：渲染函数
@@ -135,7 +136,7 @@ class App extends React.Component {
 }
 ```
 
-### 更新时：当组件的 props 或 state 发生变化时会触发更新
+#### 更新时：当组件的 props 或 state 发生变化时会触发更新
     1. getDerivedStateFromProps
     2. shouldComponentUpdate：根据返回的布尔值决定是否更新，如果返回 false，它之后的所有更新方法将不再执行
     3. Render
@@ -197,7 +198,7 @@ class App extends React.Component {
 }
 ```
 
-### 卸载时：当组件从 DOM 中移除时会调用
+#### 卸载时：当组件从 DOM 中移除时会调用
     1. componentWillUnmount：组件卸载之前执行。
 
 ```jsx
@@ -241,8 +242,8 @@ class App extends React.Component {
 }
 ```
 
-# Hooks
-## useEffect 
+## Hooks
+### useEffect 
 ```jsx
 import { useEffect } from 'react';
 
@@ -306,7 +307,7 @@ function App() {
 }
 ```
 
-## useState
+### useState
 ```jsx
 import { useEffect, useState } from 'react';
 
@@ -354,7 +355,7 @@ function App() {
 
 此时点击按钮会打印 0，因为React 组件的状态更新是异步的队列，为了性能考虑。
 
-## useLayoutEffect
+### useLayoutEffect
 执行时机：
 
 1. 它会在浏览器重新绘制之前同步执行。它会阻塞浏览器的绘制，因此影响性能。
@@ -389,7 +390,7 @@ function App() {
 }
 ```
 
-## useMemo
+### useMemo
 它是用于 react 渲染中的性能优化
 
 使用场景：父组件要进行更新，子组件的重新 render 计算量比较大，而且结果可以复用。就可以用 useMemo 来提升父组件引起的不必要渲染。
@@ -413,7 +414,7 @@ function SumComponent({ numbers }) {
 }
 ```
 
-## React.memo
+### React.memo
 可以阻止父组件更新引起的子组件更新。它本身是一个高阶组件（HOC），用于性能优化，如果 memo 包裹的子组件 props 没有发生改变，子组件就不会发生更新。
 
 ```jsx
@@ -448,7 +449,7 @@ function App() {
 }
 ```
 
-## useCallback
+### useCallback
 useCallback 是用来缓存函数的，也是做性能优化的。
 
 ```jsx
@@ -469,7 +470,7 @@ function ParentComponent() {
 }
 ```
 
-## useRef
+### useRef
 可以获取组件中 DOM 的实例。
 
 ```jsx
@@ -491,7 +492,7 @@ function App() {
 }
 ```
 
-## React.forwardRef
+### React.forwardRef
 实现 ref 的转发，使用 ref 将 DOM 节点暴露给父组件。父组件可以通过 useRef 去接收拿到子组件的 DOM实例。
 
 ```jsx
@@ -517,7 +518,7 @@ function App() {
 }
 ```
 
-## useContext
+### useContext
 它的作用是跨组件传值。需要配合 React.createContext 使用。使用之后父组件给孙子组件传值就不需要通过 props 一层一层往下去传递了。子组件必须用 context.provider 包裹。
 
 ```jsx
@@ -549,7 +550,7 @@ function App() {
 }
 ```
 
-## useTransition
+### useTransition
 它是一个在不阻塞 UI 的情况下更新状态的钩子。
 
 用于性能，用于用户体验。React 真正比 Vue 厉害的地方。
@@ -647,7 +648,7 @@ function App() {
 }
 ```
 
-## useDefferdValue
+### useDefferdValue
 它可以延迟更新 UI 的某些部分。它是采用低优先级任务的形式，让ui延迟不阻塞高优先级（用户事件：点击，滚动条，表单输入等）任务的执行。
 
 目的：
@@ -676,15 +677,15 @@ function App() {
 }
 ```
 
-## use
+### use
 它只能在测试版本中使用，它可以去代替 useContext 或者 promise.then 和 catch。
 
 并且它不需要写在顶层作用域。
 
-## useDebugValue
+### useDebugValue
 用来配合调试工具使用的调试钩子。它需要在严格模式之下开启。
 
-## useId
+### useId
 在 react 组件渲染过程中生成一个ID。
 
 这个ID是根据 react 组件树的位置相关，不是随机的。每次生成的都一样。
@@ -693,7 +694,7 @@ function App() {
 
 Node端去做服务端渲染的时候，需要确保Node端生成ID和浏览器的保持一致。
 
-## useImperativeHandle
+### useImperativeHandle
 自定义 ref，通过 forwardRef 转发出去。
 
 通过修改暴露出去的 ref，可以避免别人拿到 ref 去不合理的使用，所以可以对外暴露相对应的方法，供别人使用。
@@ -738,12 +739,12 @@ function App() {
 }
 ```
 
-## useInsertionEffect
+### useInsertionEffect
 它是给 **css-in-js 库的作者**去使用的。
 
 使用场景: 如果需要使用 js 插入 style 标签，可以使用这个钩子。
 
-## useSyncExternalStore
+### useSyncExternalStore
 是给库的作者使用的。
 
 解决 tearing，状态撕裂的问题。（react并发带来的问题）
