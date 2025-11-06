@@ -69,8 +69,8 @@ export default defineConfig({
           text: "算法",
           items: [
             { text: "算法基础", link: "/algorithm/" },
-            { text: "栈", link: "/algorithm/stack" },
-            { text: "队列", link: "/algorithm/queue" },
+            { text: "栈", link: "/algorithm/stack/" },
+            { text: "队列", link: "/algorithm/queue/" },
           ],
         }
       ],
