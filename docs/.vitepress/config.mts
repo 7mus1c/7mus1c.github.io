@@ -4,7 +4,7 @@ import { defineConfig } from "vitepress";
 export default defineConfig({
   title: "李程Lc",
   description: "一个有点作用的博客",
-  base: '/',
+  base: "/",
   themeConfig: {
     logo: "https://vitepress.dev/vitepress-logo-mini.svg",
     // https://vitepress.dev/reference/default-theme-config
@@ -15,7 +15,11 @@ export default defineConfig({
       { text: "网络", link: "/network/" },
       { text: "Vue", link: "/vue/", activeMatch: "^/vue/" },
       { text: "React", link: "/react/", activeMatch: "^/react/" },
-      { text: "TypeScript", link: "/typescript/", activeMatch: "^/typescript/" },
+      {
+        text: "TypeScript",
+        link: "/typescript/",
+        activeMatch: "^/typescript/",
+      },
       { text: "Node", link: "/node/", activeMatch: "^/node/" },
       { text: "工程化", link: "/engineering/", activeMatch: "^/engineering/" },
       { text: "算法", link: "/algorithm/", activeMatch: "^/algorithm/" },
@@ -40,6 +44,7 @@ export default defineConfig({
           items: [
             { text: "基础用法", link: "/react/" },
             { text: "源码分析", link: "/react/sourceCode" },
+            { text: "Next", link: "/react/next" },
           ],
         },
       ],
@@ -60,9 +65,9 @@ export default defineConfig({
           items: [
             { text: "webpack", link: "/engineering/webpack" },
             { text: "vite", link: "/engineering/vite" },
-            { text: "monorepo", link: "/engineering/monorepo" }
-          ]
-        }
+            { text: "monorepo", link: "/engineering/monorepo" },
+          ],
+        },
       ],
       "/algorithm/": [
         {
@@ -72,7 +77,7 @@ export default defineConfig({
             { text: "栈", link: "/algorithm/stack/" },
             { text: "队列", link: "/algorithm/queue/" },
           ],
-        }
+        },
       ],
       "/interview/": [
         {
@@ -88,19 +93,17 @@ export default defineConfig({
             { text: "node", link: "/interview/node" },
             { text: "工程化", link: "/interview/engineering" },
             { text: "算法", link: "/interview/algorithm" },
-            { text: "AI", link: "/interview/ai"},
+            { text: "AI", link: "/interview/ai" },
             { text: "其他", link: "/interview/other" },
-          ]
-        }
+          ],
+        },
       ],
       "/ai/": [
         {
           text: "Ai",
-          items: [
-            { text: "基础用法", link: "/ai/" },
-          ]
-        }
-      ]
+          items: [{ text: "基础用法", link: "/ai/" }],
+        },
+      ],
     },
 
     socialLinks: [{ icon: "github", link: "https://github.com/7mus1c" }],
