@@ -45,6 +45,7 @@ export default defineConfig({
             { text: "基础用法", link: "/react/" },
             { text: "源码分析", link: "/react/sourceCode" },
             { text: "Next", link: "/react/next" },
+            { text: "jotai", link: "/react/jotai" },
           ],
         },
       ],
