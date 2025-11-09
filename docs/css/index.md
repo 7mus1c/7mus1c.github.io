@@ -113,7 +113,7 @@ BFC（Block Formatting Context）是页面中一块独立的渲染区域，具�
 
 
 ### 触发条件（任一即可）：
-- 根元素 <html>
+- 根元素 `<html>`
 - 浮动元素（float不为none）
 - 绝对/固定定位（position: absolute/fixed）
 - display: inline-block / table-cell / flex / grid 等
