@@ -676,3 +676,226 @@ async function foo() {
 console.log(foo()); // Promise {<fulfilled>: 1}
 foo().then(console.log); // 1
 ```
+
+### set
+
+set 是 ES6 引入的一种新的数据结构，类似于数组，但是成员的值都是唯一的，没有重复的值。
+
+```js
+const set = new Set([1, 2, 3, 4, 5]);
+console.log(set.size); // 5
+console.log(set.has(3)); // true
+console.log(set.has(6)); // false
+set.add(6); // 添加元素
+set.delete(3); // 删除元素
+console.log(set.size); // 5
+console.log(set.has(3)); // false
+console.log(set.has(6)); // true
+```
+
+### set 去重
+
+```js
+const arr = [1, 2, 2, 3, 4, 4, 5];
+const uniqueArr = [...new Set(arr)];
+console.log(uniqueArr); // [1, 2, 3, 4, 5]
+```
+
+## Map
+
+Map 是 ES6 引入的一种新的数据结构，类似于对象，但是成员的键可以是各种类型的值。
+
+```js
+const map = new Map();
+map.set("name", "Alice");
+map.set("age", 25);
+console.log(map.get("name")); // Alice
+console.log(map.get("age")); // 25
+console.log(map.has("name")); // true
+console.log(map.has("gender")); // false
+map.delete("age");
+console.log(map.has("age")); // false
+```
+
+## weakMap
+
+weakMap 是 ES6 引入的一种新的数据结构，类似于 Map，但是成员的键只能是对象，而且这些对象都是弱引用，即垃圾回收机制不考虑 WeakMap 对该对象的引用，也就是说，如果其他对象都不再引用该对象，那么垃圾回收机制会立刻回收该对象所占用的内存，不考虑该对象还存在于 WeakMap 之中。
+
+```js
+const wm = new WeakMap();
+const key = { id: 1 };
+wm.set(key, "Alice");
+console.log(wm.get(key)); // Alice
+key = null; // 垃圾回收机制会自动回收 key 所占用的内存
+```
+
+## weakSet
+
+weakSet 是 ES6 引入的一种新的数据结构，类似于 Set，**但是成员只能是对象**，而且这些对象都是弱引用，即垃圾回收机制不考虑 WeakSet 对该对象的引用，也就是说，如果其他对象都不再引用该对象，那么垃圾回收机制会立刻回收该对象所占用的内存，不考虑该对象还存在于 WeakSet 之中。
+
+```js
+const ws = new WeakSet();
+const key = { id: 1 };
+ws.add(key);
+console.log(ws.has(key)); // true
+key = null; // 垃圾回收机制会自动回收 key 所占用的内存
+```
+
+## Proxy
+
+Proxy 是 ES6 引入的一种新的对象，用于定义基本操作的自定义行为（如属性查找、赋值、枚举、函数调用等）。
+
+```js
+const target = {
+  name: "Alice",
+  age: 25,
+};
+
+const handler = {
+  get: function (obj, prop) {
+    console.log(`Getting ${prop}`);
+    return obj[prop];
+  },
+  set: function (obj, prop, value) {
+    console.log(`Setting ${prop} to ${value}`);
+    obj[prop] = value;
+  },
+};
+const proxy = new Proxy(target, handler);
+
+console.log(proxy.name); // Getting name, Alice
+proxy.age = 30; // Setting age to 30
+console.log(proxy.age); // Getting age, 30
+```
+
+## Reflect
+
+Reflect 是 ES6 引入的一种新的对象，它提供了一种新的方式来操作对象，它和 Proxy 一样。
+
+```js
+const obj = {
+  name: "Alice",
+  age: 25,
+};
+
+console.log(Reflect.get(obj, "name")); // Alice
+Reflect.set(obj, "age", 30);
+console.log(obj.age); // 30
+console.log(Reflect.has(obj, "name")); // true
+Reflect.ownKeys(object1); // ["name", "age"]
+```
+
+## Iterator
+
+Iterator 是 ES6 引入的一种新的遍历机制，它是一种接口，为各种不同的数据结构提供统一的访问机制。任何数据结构只要部署了 Iterator 接口，就可以完成遍历操作。
+
+```js
+const arr = [1, 2, 3, 4, 5];
+const iterator = arr[Symbol.iterator]();
+console.log(iterator.next().value); // 1
+console.log(iterator.next().value); // 2
+console.log(iterator.next().value); // 3
+```
+
+## Generator
+
+Generator 是 ES6 引入的一种新的函数类型，它可以在函数执行过程中多次返回，并且可以在返回时携带数据。
+
+```js
+function* generator() {
+  yield 1;
+  yield 2;
+  yield 3;
+}
+
+const iterator = generator();
+console.log(iterator.next().value); // 1
+console.log(iterator.next().value); // 2
+console.log(iterator.next().value); // 3
+```
+
+## IntersectionObserver
+
+IntersectionObserver 是 ES2017 引入的一种新的 API，用于异步观察目标元素与其祖先元素或顶级文档视窗（viewport）交叉状态的变化。
+
+```js
+const options = {
+  root: null, // 顶级文档视窗
+  rootMargin: "0px",
+  threshold: 0.5, // 交叉比例达到 50% 时触发回调
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      console.log("元素进入视窗");
+    } else {
+      console.log("元素离开视窗");
+    }
+  });
+}, options);
+
+const target = document.querySelector("#target");
+observer.observe(target);
+```
+
+### 懒加载
+
+```jsx
+// <!-- 用data-src存真实图片地址，src放占位图 -->
+<img
+  data-src="https://xxx.com/real-img.jpg"
+  src="placeholder.jpg"
+  class="lazy-img"
+/>;
+
+// 初始化观察者
+const lazyObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    // 当图片进入视口
+    if (entry.isIntersecting) {
+      const img = entry.target;
+      img.src = img.dataset.src; // 加载真实图片
+      lazyObserver.unobserve(img); // 加载后停止监听
+    }
+  });
+});
+
+// 给所有懒加载图片添加监听
+document.querySelectorAll(".lazy-img").forEach((img) => {
+  lazyObserver.observe(img);
+});
+```
+
+### 无限滚动
+
+```jsx
+const options = {
+  root: null,
+  rootMargin: "0px",
+  threshold: 1.0,
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      // 加载更多数据
+      loadMoreData();
+    }
+  });
+}, options);
+
+const target = document.querySelector("#target");
+observer.observe(target);
+```
+
+## URL + URLSearchParams
+
+```js
+const url = new URL("https://example.com/search?q=javascript&sort=desc");
+const params = new URLSearchParams(url.search);
+console.log(params.get("q")); // javascript
+console.log(params.get("sort")); // desc
+params.set("q", "typescript");
+console.log(url.toString()); // https://example.com/search?q=typescript&sort=desc
+```
