@@ -894,6 +894,7 @@ observer.observe(target);
 ```js
 const url = new URL("https://example.com/search?q=javascript&sort=desc");
 const params = new URLSearchParams(url.search);
+
 console.log(params.get("q")); // javascript
 console.log(params.get("sort")); // desc
 params.set("q", "typescript");
