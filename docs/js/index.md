@@ -900,3 +900,110 @@ console.log(params.get("sort")); // desc
 params.set("q", "typescript");
 console.log(url.toString()); // https://example.com/search?q=typescript&sort=desc
 ```
+
+## web worker
+
+web worker 是一种运行在后台的 JavaScript 线程，它可以在不干扰主线程的情况下执行任务，从而提高页面的性能。
+
+```js
+// 主线程
+const worker = new Worker("worker.js");
+worker.postMessage({ type: "start", data: largeArray });
+
+worker.onmessage = (e) => {
+  console.log("结果:", e.data);
+};
+
+// worker.js
+self.onmessage = (e) => {
+  const result = heavyComputation(e.data);
+  self.postMessage(result);
+};
+```
+
+### 解决的问题
+
+- 避免 UI 卡顿：耗时任务（大数据计算、图像处理）在后台执行，不影响页面交互
+- 充分利用多核 CPU：现代设备多为多核，Worker 可并行处理任务
+- 防止脚本无响应：避免"页面无响应"提示
+
+### 限制
+
+- 无法访问 DOM：不能直接操作页面元素
+- 无法访问 Window 对象：没有 window、document、parent 等
+- 脚本同源限制：Worker 文件必须与主线程脚本同源
+- 不能调用 alert()、confirm() 等 UI 相关 API
+
+### 应用场景
+
+- 大数据处理：百万级数据排序、过滤
+- 图像/音视频处理：使用 OffscreenCanvas 或 WebAssembly
+- 实时数据同步：后台同步数据不阻塞 UI
+- 编码/解码：Base64、加密解密算法
+- 复杂计算：物理模拟、机器学习推理
+
+## WebAssembly
+
+WebAssembly（简称 WASM）是一种可以在现代浏览器中运行的低级编程语言，它是一种二进制格式，可以在浏览器中运行，并且可以与 JavaScript 一起使用。
+
+### 优点
+
+- 高性能：接近原生代码的执行速度
+- 安全：沙箱环境，无法访问 DOM 和其他浏览器 API
+- 跨平台：可以在不同操作系统和设备上运行
+- 可移植：可以在浏览器和 Node.js 等环境中运行
+
+### 缺点
+
+- 学习曲线：需要学习新的编程语言（C/C++/Rust）和工具链
+- 开发复杂：需要编写和维护多份代码
+- 文件大小：二进制格式，文件较大
+- 调试困难：无法直接使用 JavaScript 调试工具
+- 兼容性：部分旧浏览器不支持
+- 生态系统：工具链和库较少
+
+### 应用场景
+
+- 游戏：高性能图形渲染、物理引擎
+- 图像处理：滤镜、压缩、编辑
+- 数据处理：大数据分析、机器学习
+- 音视频处理：编解码、流媒体
+- 工具和库：性能要求高的工具和库，如编译器、编辑器、模拟器
+- 跨平台应用：需要高性能和跨平台的应用，如桌面应用、移动应用
+
+### 使用
+
+```c
+int fibonacci(int n) {
+    if (n <= 1) return n;
+    return fibonacci(n-1) + fibonacci(n-2);
+}
+```
+
+使用 Emscripten 编译为 wasm
+
+```bash
+emcc fibonacci.c -o fibonacci.wasm
+```
+
+```js
+// 异步加载并实例化 WebAssembly 模块
+WebAssembly.instantiateStreaming(fetch("fibonacci.wasm")).then((obj) => {
+  // 获取导出的 fibonacci 函数
+  const fib = obj.instance.exports.fibonacci;
+
+  // 调用它
+  console.log(fib(40)); // 计算第40个斐波那契数，这将比JS实现快得多
+});
+
+// 也可以
+const wasmModule = await WebAssembly.instantiateStreaming(fetch("module.wasm"));
+
+const fib = wasmModule.instance.exports.fibonacci;
+fib(40); // 计算第40个斐波那契数
+```
+
+### 编译工具
+- Rust: wasm-pack, wasm-bindgen
+- C/C++: Emscripten, LLVM
+- AssemblyScript: TypeScript 语法编译到 Wasm
