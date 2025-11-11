@@ -102,7 +102,7 @@ export default defineConfig({
       "/ai/": [
         {
           text: "Ai",
-          items: [{ text: "基础用法", link: "/ai/" }],
+          items: [{ text: "基本概念", link: "/ai/" }],
         },
       ],
     },
