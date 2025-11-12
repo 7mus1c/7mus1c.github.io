@@ -10,7 +10,7 @@ pnpm 是一个包管理工具，就像 npm 和 yarn 一样，但它的设计目�
 
 pnpm 通过硬链接和符号链接的方式，将相同的依赖包存储在全局 store 中，避免了重复安装。
 
-![pnpm硬连接](../../assets/images/engineering/pnpm/store.png)
+![pnpm硬连接](../../assets/images/node/pnpm/store.png)
 
 ```bash
 # 传统情况：每个项目都复制一份依赖
@@ -52,7 +52,7 @@ node_modules/
    - 此时，项目中直接引用 lodash 会指向顶层版本（可能与预期不符），导致版本冲突难以排查。
 
 就拿 `axios` 举例，npm 和 pnpm 的依赖树如下：
-![NPMvsPNPM](../../assets/images/engineering/pnpm/npm-pnpm.png)
+![NPMvsPNPM](../../assets/images/node/pnpm/npm-pnpm.png)
 
 #### 幽灵依赖
 
@@ -124,7 +124,7 @@ node_modules/
 3. 生成 package-lock.json
 4. 下载所有 tarball 
 5. 解压并构建 node_modules 
-   ![传统安装](../../assets/images/engineering/pnpm/traditional-install.png)
+   ![传统安装](../../assets/images/node/pnpm/traditional-install.png)
 
 pnpm 的安装过程：
 
@@ -132,7 +132,7 @@ pnpm 的安装过程：
 2. 检查全局存储（跳过已存在的包）
 3. 并行下载缺失的包
 4. 创建硬链接到 node_modules
-   ![pnpm安装](../../assets/images/engineering/pnpm/pnpm-install.png)
+   ![pnpm安装](../../assets/images/node/pnpm/pnpm-install.png)
 
 
 ## 使用方法
