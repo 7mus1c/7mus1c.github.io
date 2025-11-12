@@ -60,6 +60,16 @@ export default defineConfig({
           items: [{ text: "类型体操", link: "/typescript/type" }],
         },
       ],
+      "/node/": [
+        {
+          text: "Node",
+          items: [{ text: "基础用法", link: "/node/" }],
+        },
+        {
+          text: "pnpm",
+          items: [{ text: "基础", link: "/node/pnpm/" }],
+        }
+      ],
       "/engineering/": [
         {
           text: "项目工程化",
