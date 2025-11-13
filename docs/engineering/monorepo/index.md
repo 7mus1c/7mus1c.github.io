@@ -127,27 +127,49 @@ company-monorepo/
 - 中型项目：pnpm + Turborepo 加速构建
 - 大型项目：pnpm + Nx 提供更多功能
 
-### pnpm workspace
-
-1. 初始化项目
+### 1. 初始化项目
 
 ```bash
-mkdir my-monorepo && cd my-monorepo
+mkdir monorepo-demo && cd monorepo-demo
 
 pnpm init
 ```
 
-2. 创建目录
+### 2. 配置 pnpm-workspace.yaml
+
+新增 pnpm-workspace.yaml 文件，配置工作区
+
+```yaml
+packages:
+  - "packages/*" # 存放共享的包（如组件、工具库）
+  - "apps/*" # 存放应用程序（如Demo、文档站点）
+```
+
+此配置告诉 pnpm：packages 和 apps 目录下的每个子目录都是一个独立的包。
+
+### 3. 创建目录
 
 ```bash
-my-monorepo/
-├── apps/
-│   ├── web/
-│   └── admin/
+monorepo-demo/
+├── package.json
+├── pnpm-workspace.yaml
 ├── packages/
 │   ├── utils/
-│   ├── ui/
-│   └── types/
-├── tools/           # 共享工具链
-└── package.json
+│   │   ├── package.json
+│   │   └── index.js
+│   └── components/
+│       ├── package.json
+│       └── index.js
+└── apps/
+    ├── web-app/
+    │   ├── package.json
+    │   └── src/
+    │       └── main.js
+    └── docs/
+        ├── package.json
+        └── src/
+            └── main.js
 ```
+
+分别在 utils 、components、web-app、docs 目录下执行 `pnpm init` 初始化。
+
