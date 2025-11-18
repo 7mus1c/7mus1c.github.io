@@ -173,3 +173,97 @@ monorepo-demo/
 
 分别在 utils 、components、web-app、docs 目录下执行 `pnpm init` 初始化。
 
+### 4. 包名修改
+
+```json
+{
+  "name": "@company/utils",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+
+{
+  "name": "@company/components",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+}
+```
+
+### 5. 依赖管理
+
+#### 5.1 全局安装
+
+-w 代表在根目录下安装依赖，适合全局共享的依赖。比如： typescript、eslint、prettier 等。
+
+```bash
+pnpm add typescript -w -D
+```
+
+#### 5.2 子包安装
+
+--filter 代表在某个子包下安装依赖，适合子包私有的依赖。比如：webpack、vite 等。
+
+```bash
+pnpm add react --filter packages/web-app
+```
+
+### 6. 子包共享
+
+#### 6.1 子包引用
+
+比如我要在 docs 子包中引用 utils 子包，只需要在根目录 package.json 中添加 utils 子包的依赖即可。
+
+```bash
+pnpm add @company/utils --workspace  -w
+```
+
+**注意**：别忘了修改 utils 子包的 package.json，将 type 修改为 module。
+
+```js
+// utils
+function add(a, b) {
+  return a + b;
+}
+
+export default add;
+```
+
+```js
+// docs
+import add from "@company/utils";
+console.log(add(1, 2));
+```
+
+```bash
+node apps/docs/src/main.js. #此时应该输入3
+```
+
+**当然也可以在开发阶段使用 ../../ 这种相对路径直接引入**。
+
+### 7.Turborepo
+
+#### 什么是 turborepo
+
+它是一个高性能的构建系统，专门构建 monorepo 的 JS 和 TS 的项目。
+它通过并行化任务、缓存结果、减少重复工作等方式，大大提高了构建速度。
+
+#### 它有什么特点？
+
+- 增量构建：只构建发生变化的文件，大大减少了构建时间。
+- 云缓存：将构建结果缓存到云端，大大减少了重复构建的时间。
+- 任务管道：用配置文件定义任务之间的关系，然后优化构建内容和时间
+- 并行执行：同时执行多个任务，大大提高了构建速度。
+- 构建文件：可以生成构建文件，并且可以导入到浏览器去了解哪些任务花费时间最长。
+
+#### 核心概念
+
+1. 管道：定义任务之间的关系，优化构建内容和时间。
