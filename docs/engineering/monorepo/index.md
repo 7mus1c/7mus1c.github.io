@@ -250,6 +250,7 @@ node apps/docs/src/main.js. #此时应该输入3
 **当然也可以在开发阶段使用 ../../ 这种相对路径直接引入**。
 
 ### 7.Turborepo
+[中文网站](https://turbo.net.cn/)
 
 #### 什么是 turborepo
 
@@ -266,4 +267,126 @@ node apps/docs/src/main.js. #此时应该输入3
 
 #### 核心概念
 
-1. 管道：定义任务之间的关系，优化构建内容和时间。
+##### 管道
+
+定义任务之间的关系，优化构建内容和时间。它允许开发者定义和执行跨多个包的自定义任务。
+在 pipeline 中的每一个 key 都指向 pacages.json 的 scripts 中的一个脚本。并在 pipeline 中的每一个 key 都可以被 turbo run 所执行，
+并且可以传递参数。
+在执行 turbo run xxx 命令的时候，tubor 会根据定义的 piplines 里对命令的各种配置去对每个 package 中的 scripts 的命令进行执行。
+
+##### DependsOn
+
+在 Turborepo 中，DependsOn 是一种配置属性，它允许制定任务之间的依赖关系，通过使用 DependsOn 属性，可以指定一个任务在另一个任务完成之后才能开始执行。
+DependsOn 的主要功能是定义任务之间的依赖关系，确保任务按照正确的顺序执行，避免出现任务之间的竞争条件或数据不一致的问题。比如如测试或部署需要等待其他任务如构建或编译完成后才能开始。
+
+##### Cache
+
+Cache 是 Turborepo 的一个重要特性，它允许开发者将构建结果缓存到本地，以便在下次构建时可以快速地加载这些结果，从而大大提高构建速度。
+
+##### Remote Caching
+
+远程缓存：将构建结果缓存到云端（vervel），大大减少了重复构建的时间。
+
+##### OutputLogs
+
+设置输出日志详细程度，默认为 full。
+
+- full： 默认显示所有构建结果
+- hash-only： 只显示构建结果的哈希值
+- new-only： 只显示新构建的结果
+- errors-only： 只显示构建错误
+- none： 不显示任何构建结果
+
+##### Filtering Packages
+
+如果只想要构建或测试某些包，可以使用 --filter 来指定这些包。
+
+- --filter： 只构建指定的包
+- --filter-with： 只构建匹配指定正则表达式的包
+
+## 基于 Turborepo 的 Monorepo 项目
+
+### 安装
+
+```bash
+pnpm dlx create-turbo@latest
+```
+
+输入项目名称，选择使用 pnpm。
+此时会得到一个项目目录
+```bash
+my-tuborepo/
+├── apps/
+│   ├── docs
+│   └── web
+├── packages
+│   ├── eslint-config
+│   ├── typescript-config
+│   └── ui
+├── .npmrc
+├── package.json
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+├── README.md
+└── turbo.json
+```
+
+查看 package.json，可以看到 turborepo 默认配置了几个命令。
+```json
+{
+  "name": "my-turborepo",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "check-types": "turbo run check-types"
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2",
+    "turbo": "^2.6.1",
+    "typescript": "5.9.2"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=18"
+  }
+}
+
+```
+
+### 启动
+
+```bash
+pnpm run dev
+```
+
+通过启动项目，在控制台可以看到有两个项目在同时运行，web 和 docs。
+
+
+### 查看 turbo.json
+
+```json
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "ui": "tui",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"], // 先构建依赖项
+      "inputs": ["$TURBO_DEFAULT$", ".env*"], // 构建输入
+      "outputs": [".next/**", "!.next/cache/**"] // 缓存输出
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "check-types": {
+      "dependsOn": ["^check-types"]
+    },
+    "dev": {
+      "cache": false, // 开发模式不缓存
+      "persistent": true
+    }
+  }
+}
+```
