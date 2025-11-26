@@ -21,7 +21,11 @@ export default defineConfig({
         activeMatch: "^/typescript/",
       },
       { text: "Node", link: "/node/", activeMatch: "^/node/" },
-      { text: "性能优化", link: "/performance/", activeMatch: "^/performance/" },
+      {
+        text: "性能优化",
+        link: "/performance/",
+        activeMatch: "^/performance/",
+      },
       { text: "工程化", link: "/engineering/", activeMatch: "^/engineering/" },
       { text: "算法", link: "/algorithm/", activeMatch: "^/algorithm/" },
       { text: "面试题", link: "/interview/", activeMatch: "^/interview/" },
@@ -69,12 +73,19 @@ export default defineConfig({
         {
           text: "pnpm",
           items: [{ text: "基础", link: "/node/pnpm/" }],
-        }
+        },
       ],
       "/performance/": [
         {
           text: "性能优化",
-          items: [{ text: "性能指标", link: "/performance/" }],
+          items: [
+            { text: "性能概述", link: "/performance/" },
+            {
+              text: "衡量前端性能",
+              link: "/performance/measurePerformance",
+            },
+            { text: "代码逻辑", link: "/performance/codeLogic" },
+          ],
         },
       ],
       "/engineering/": [
