@@ -351,6 +351,72 @@ console.log(cache.keys); // [c, b, d]
 
 思路：结合滚动条 TOP 位置和容器可视区域计算出这个区间的数据想，渲染到滚动容器中。适合应用在 H5 移动端，类似抖音的 短视频 推荐列表。
 
+### React
+
+[react-window](https://react-window.vercel.app/)
+https://react-window.vercel.app/
+
+```jsx
+// 使用 react-window 库实现虚拟滚动列表
+import { FixedSizeList } from "react-window";
+
+const items = [...array(10000)]; // 假如有一万条数据量
+
+const Row = ({ index, style }) => <div style={style}>Row - {index}</div>;
+
+const ListComponent = () => (
+  <FixedSizeList
+    height={500}
+    width={500}
+    itemSize={120}
+    itemCount={items.length}
+  >
+    {Row}
+  </FixedSizeList>
+);
+
+export default ListComponent;
+```
+
+### Vue
+
+[vue-virtual-scroller](https://vue-virtual-scroller-demo.netlify.app/)
+
+```vue
+<template>
+  <RecycleScroller
+    class="scroller"
+    :items="list"
+    :item-size="32"
+    key-field="id"
+  >
+    <div class="user">{{ item.name }}</div>
+  </RecycleScroller>
+</template>
+
+<script>
+import { RecycleScroller } from "vue-virtual-scroller";
+// 假如有1万条数据
+const list = Array.from({ length: 10000 }).map((_, index) => ({
+  id: i,
+  name: `User ${i}`,
+}));
+</script>
+
+<style>
+.scroller {
+  height: 600px;
+}
+</style>
+```
+
+### 原生 JS
+
+```js
+// 1. 数据准备
+const totalItems = 10000; // 假如有一万条数据量
+```
+
 ```html
 <div class="virtual-list-container" id="virtual-list-container">
   <div class="virtual-list-phantom" id="virtual-list-phantom"></div>
@@ -397,7 +463,7 @@ console.log(cache.keys); // [c, b, d]
 ```
 
 ```js
-const totalItems = 10000; // 加入有一天条数据量
+const totalItems = 10000; // 假如有一万条数据量
 const itemHeight = 40; // 列表项固定高度，需与 CSS 中的一致
 const containerHeight = 400; // 容器高度，需与 CSS 中的一致
 const bufferItems = 5; // 缓冲区数量，防止滚动时出现白屏
@@ -408,9 +474,12 @@ const data = Array.from({ length: totalItems }).map((_, index) => ({
 }));
 
 // 2. DOM 结构
-const container = document.getElementById("virtual-list-container"); // 带有滚动条和固定高度的外部容器。
-const phantom = document.getElementById("virtual-list-phantom"); // 幽灵元素（占位元素），用于撑开滚动条。
-const list = document.getElementById("virtual-list"); // 实际渲染可见列表项的内部容器。
+// 带有滚动条和固定高度的外部容器。
+const container = document.getElementById("virtual-list-container");
+// 幽灵元素（占位元素），用来模拟所有数据的高度，从而产生滚动条
+const phantom = document.getElementById("virtual-list-phantom");
+// 实际渲染可见列表项的内部容器。
+const list = document.getElementById("virtual-list");
 
 // 3.初始化幽灵元素高度
 // 这是实现滚动条的关键一步。将 phantom 元素的高度设置为所有项目堆叠起来的总高度 (10000 * 40px = 400000px)。
@@ -418,43 +487,236 @@ const list = document.getElementById("virtual-list"); // 实际渲染可见列�
 // 用户滚动滚动条时，感觉就像在滚动一个包含 10000 个项目的长列表一样。
 phantom.style.height = `${totalItems * itemHeight}px`;
 
+// 4. 渲染列表
 function renderList() {
-  // 计算当前滚动位置
+  // 获取当前容器顶部滚动的像素距离（例如，如果滚动了 400px）。
   const scrollTop = container.scrollTop;
-  // 计算开始索引
+  // 计算当前视口顶部应该显示的数据项索引，比如滚动了 400px，索引就从10开始
   const startIndex = Math.floor(scrollTop / itemHeight);
-  // 缓冲区
-  const buffer = Math.max(0, startIndex - bufferItems);
-  // 计算结束索引
+
+  // 引入了 bufferItems（缓冲区）的概念
+  // 为了防止快速滚动时出现白屏，在窗口上方预先多渲染几个项目。Math.max(0, ...) 确保索引不会是负数。
+  const renderStartIndex = Math.max(0, startIndex - bufferItems);
+
+  // 计算出容器内最多能容纳多少个完整的列表项（400px / 40px = 10 个）
   const visibleCount = Math.ceil(containerHeight / itemHeight);
-  const endIndex = Math.min(
+
+  // 计算需要渲染的最后一个项目的索引。这里同样加入了缓冲区在视口下方预先多渲染几个项目，提供更平滑的滚动体验。
+  // Math.min(totalItems, ...) 确保索引不会超出数据总量的范围
+  // 开始索引 + 视图内显示的列表项数量 + 缓冲区数量 = 最后一个需要渲染的列表项的索引
+  const renderEndIndex = Math.min(
     totalItems,
     startIndex + visibleCount + bufferItems
   );
 
   // 获取需要渲染的数据
-  const visibleData = data.slice(start, end);
+  // 现在使用 renderStartIndex 和 renderEndIndex
+  const visibleData = data.slice(renderStartIndex, renderEndIndex);
 
   // 更新列表 DOM
-    list.innerHTML = '';
-    visibleData.forEach((item, index) => {
-        const itemElement = document.createElement('div');
-        itemElement.className = 'list-item';
-        itemElement.textContent = item.text;
-        // 使用 transform 定位元素到正确的位置
-        itemElement.style.transform = `translateY(${start * itemHeight}px)`;
-        list.appendChild(itemElement);
-    });
+  list.innerHTML = "";
+  visibleData.forEach((item, index) => {
+    const itemElement = document.createElement("div");
+    itemElement.className = "list-item";
+    itemElement.textContent = item.text;
+    // 内部容器 (list) 的位置是相对固定的，但它内部的每个列表项都需要被“瞬移”到它们在整个 400000px 长列表中的正确垂直位置。
+    // 通过设置 translateY 偏移量，使得这些 DOM 节点精准地出现在用户当前滚动的视口位置。
+    itemElement.style.transform = `translateY(${
+      renderStartIndex * itemHeight
+    }px)`;
+    list.appendChild(itemElement);
+  });
 }
 
 // 监听滚动事件
-container.addEventListener('scroll', updateVisibleItems);
+container.addEventListener("scroll", renderList);
 
 // 初始加载
-updateVisibleItems();
+renderList();
 ```
 
-容器 (container): 负责设置可视区域的高度并监听滚动事件。
-幽灵元素 (phantom): 一个高度等于所有列表项总高度的不可见元素 (totalItems \* itemHeight)。它的作用是撑开容器，使浏览器生成一个正常的滚动条。
-列表 (list): 真正渲染可见列表项的区域，使用绝对定位使其脱离文档流。
-动态定位: 根据当前滚动位置 (scrollTop) 计算出应该渲染的列表项的起始和结束索引，只渲染这个范围内的 DOM 元素。同时，通过 CSS transform: translateY(...) 将渲染区域整体偏移到正确的位置，使得列表项看起来是在正常滚动。
+## CSS 优化
+
+### 非关键 css 异步加载
+
+```html
+<link
+  rel="preload"
+  href="styles.css"
+  as="style"
+  onload="this.rel='stylesheet'"
+/><!-- 异步加载 css 等页面加载完再设置为 stylesheet  -->
+```
+
+### 不同设备加载不同 css
+
+```html
+<!-- 始终阻塞渲染 -->
+<link rel="stylesheet" href="styles.css" />
+<!-- 窄屏设备才应用，大屏加载 -->
+<link rel="stylesheet" href="mobile-styles.css" media="(max-width: 600px)" />
+<!-- 宽屏设备才应用，小屏不加载 -->
+<link rel="stylesheet" href="desktop-styles.css" media="(min-width: 601px)" />
+<!-- 仅在打印时应用，不阻塞屏幕渲染 -->
+<link rel="stylesheet" href="print-styles.css" media="print" />
+```
+
+### 选择器优化
+
+1. 避免过度复杂的选择器，选择器解析时间从左到右递增：
+
+```css
+/* ❌ 性能杀手：复杂度O(n⁴) */
+body div#main-content article.post h2.headline {
+  font-size: 24px;
+}
+
+/* ✅ 最优：复杂度O(1) */
+.headline {
+  font-size: 24px;
+}
+```
+
+2. 避免通用选择器
+
+```css
+/* ❌ 性能差 - 匹配所有元素 */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* ✅ 性能好 - 针对性重置 */
+body,
+h1,
+h2,
+h3,
+p,
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+```
+
+3. 减少层叠与继承
+
+```css
+/* ❌ 性能差 - 深度嵌套 */
+div > ul > li > a > span {
+  ...;
+}
+
+/* ✅ 性能好 - 使用类名 */
+.nav-link-text {
+  ...;
+}
+
+/* ❌ 隐式继承 */
+.parent {
+  color: black;
+}
+.child {
+  /* 无声明却继承color */
+}
+
+/* ✅ 显式声明 */
+.child {
+  color: inherit;
+} /* 明确声明继承 */
+```
+
+### 避免重绘与重排
+
+1. 修改 DOM 样式时，尽量一次性修改，避免多次重排
+
+```css
+/* ❌ 性能差 - 多次重排 */
+element.style.width = "100px";
+element.style.height = "100px";
+element.style.margin = "10px";
+element.style.padding = "20px";
+
+/* ✅ 性能好 - 一次重排 */
+element.style.cssText = "width: 100px; height: 100px; margin: 10px; padding: 20px;";
+```
+
+2. 使用 transform 和 opacity 修改动画，避免重排
+
+```css
+/* ❌ 性能差 - 触发重排 */
+.box {
+  animation: move-slow 2s infinite;
+}
+@keyframes move-slow {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: 100px;
+  }
+}
+
+/* ✅ 性能好 - 只触发合成 */
+.box {
+  animation: move-fast 2s infinite;
+}
+@keyframes move-fast {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100px);
+  }
+}
+```
+
+什么是合成？
+
+```text
+JavaScript → 样式计算 → 布局 → 绘制 → 合成
+```
+
+**只重新合成不需要重新布局和绘制**。
+
+3. 避免频繁操作 DOM
+
+```css
+/* ❌ 性能差 - 多次重排 */
+for (let i = 0; i < 1000; i++) {
+  const newElement = document.createElement("div");
+  document.body.appendChild(newElement);
+}
+
+/* ✅ 性能好 - 批量操作 */
+const fragment = document.createDocumentFragment();
+for (let i = 0; i < 1000; i++) {
+  const newElement = document.createElement("div");
+  fragment.appendChild(newElement);
+}
+document.body.appendChild(fragment);
+```
+
+4. GPU 硬件加速
+
+这是避免重排和重绘最有效的方法之一。某些 CSS 属性的操作可以被浏览器交给 GPU 处理，这些操作只涉及**合成（Composite）**阶段，完全跳过了重排和重绘。
+
+```css
+/* 触发合成层（最优） */
+.transform-optimized {
+  transform: translate3d(0, 0, 0); /* 3D变换强制GPU层 */
+  opacity: 0.9;
+}
+
+/* 固定定位元素天然在合成层 */
+.fixed-header {
+  position: fixed;
+  top: 0;
+}
+
+/* 视频/画布自动加速 */
+video,
+canvas {
+  /* 已在独立层 */
+}
+```
