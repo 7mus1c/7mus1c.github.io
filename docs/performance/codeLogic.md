@@ -113,10 +113,10 @@ function throttle(fn, delay) {
 图片懒加载是一种常见的优化手段，它的主要作用是避免页面加载过多的图片导致页面卡顿，从而影响用户体验。
 主要是首次进入页面后一次性加载所有的图片，实际有很多图片并不在屏幕中展示。从而导致 http 请求过多，页面卡顿。
 
-1. html 本身就支持懒加载，通过 loading 属性即可实现。
+1. html 本身就支持懒加载，通过 loading 属性即可实现。不过这个属性在 2020 年后现代浏览器才支持，不支持的浏览器需要使用 IntersectionObserver 来实现。并且必须写死 width 和 height，否则 CLS 会抖成 PPT。
 
 ```html
-<img src="https://xxx.jpg" loading="lazy" src="" />
+<img src="https://xxx.jpg" loading="lazy" width="700" height="300" />
 ```
 
 2. 使用 Intersection Observer 来实现。
@@ -681,7 +681,7 @@ JavaScript → 样式计算 → 布局 → 绘制 → 合成
 
 3. 避免频繁操作 DOM
 
-```css
+```js
 /* ❌ 性能差 - 多次重排 */
 for (let i = 0; i < 1000; i++) {
   const newElement = document.createElement("div");
