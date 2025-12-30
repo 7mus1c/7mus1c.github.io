@@ -85,6 +85,8 @@ export default defineConfig({
               link: "/performance/measurePerformance",
             },
             { text: "代码逻辑", link: "/performance/codeLogic" },
+            { text: "Vue", link: "/performance/vue" },
+            { text: "React", link: "/performance/react" },
           ],
         },
       ],
