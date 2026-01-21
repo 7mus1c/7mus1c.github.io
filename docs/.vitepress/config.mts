@@ -91,6 +91,7 @@ export default defineConfig({
             { text: "白屏时间", link: "/performance/whiteScreenTime" },
             { text: "交互体验", link: "/performance/interactionExperience" },
             { text: "打包策略", link: "/performance/packagingStrategy" },
+            { text: "基础设置", link: "/performance/baseSetting" },
           ],
         },
       ],
