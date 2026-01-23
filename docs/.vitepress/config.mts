@@ -48,9 +48,12 @@ export default defineConfig({
           text: "React",
           items: [
             { text: "基础用法", link: "/react/" },
+            { text: "react-router", link: "/react/router" },
+            { text: "redux", link: "/react/redux" },
+            { text: "jotai", link: "/react/jotai" },
+            { text: "zustand", link: "/react/zustand" },
             { text: "源码分析", link: "/react/sourceCode" },
             { text: "Next", link: "/react/next" },
-            { text: "jotai", link: "/react/jotai" },
           ],
         },
       ],
