@@ -99,9 +99,9 @@ export default defineConfig({
         {
           text: "项目工程化",
           items: [
-            { text: "webpack", link: "/engineering/webpack/" },
-            { text: "vite", link: "/engineering/vit/e" },
-            { text: "monorepo", link: "/engineering/monorepo/" },
+            { text: "webpack", link: "/engineering/webpack" },
+            { text: "vite", link: "/engineering/vite" },
+            { text: "monorepo", link: "/engineering/monorepo" },
           ],
         },
       ],
