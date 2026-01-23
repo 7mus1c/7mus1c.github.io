@@ -43,7 +43,7 @@ root.render(
 ```
 
 # HashRouter
-访问：http://localhost:3000/#app 和 http://localhost:3000/#bpp
+访问：`http://localhost:3000/#app` 和 `http://localhost:3000/#bpp`
 
 缺陷：
 
@@ -459,7 +459,7 @@ const App = React.lazy(() => import('./App.js'));
 
 注意 CreateBrowserRouter 没有 lazy 属性，所以不可以直接使用。
 
-但是 createRoutesFromElements 是有 lazy 的，但是写法不一样。详细见https://reactrouter.com/en/main/route/lazy#lazy
+但是 createRoutesFromElements 是有 lazy 的，但是写法不一样。详细见 https://reactrouter.com/en/main/route/lazy#lazy
 
 :::
 
