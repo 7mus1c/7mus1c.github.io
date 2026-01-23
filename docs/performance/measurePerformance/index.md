@@ -10,19 +10,19 @@
 
 定义：从用户请求网址到页面内最大**文本块**或**图片**或者**视频**渲染所需的时间。也就是最大内容的渲染。这体现了加载性能。
 意义：直接反映页面的主要内容何时对用户可见。LCP 越快，用户感觉页面加载速度越快。LCP 的值应该小于等于 2.5。
-![LCP](../assets/images/performance/lcp.png)
+![LCP](../../assets/images/performance/lcp.png)
 
 ### CLS （Cumulative Layout Shift）
 
 定义：页面整个生命周期内发生的非预期布局偏移的累积分数。这体现了视觉稳定性。
 意义：CLS 越低，用户体验越好。例如，用户正要点击一个按钮，但该按钮突然下移，导致用户误点了广告。这用户体验就非常差。
-![CLS](../assets/images/performance/cls.png)
+![CLS](../../assets/images/performance/cls.png)
 
 ### INP （Interaction to Next Paint）
 
 定义：观测网页在用户访问期间发生的所有点击、点按和键盘互动的延迟时间。这代表了交互体验。
 意义：从用户触发交互到浏览器下一次绘制被阻塞的时间，低的 INP 值意味着页面能快速响应用户的操作，避免卡顿感。
-![INP](../assets/images/performance/inp.png)
+![INP](../../assets/images/performance/inp.png)
 
 ## 辅助性能指标
 
@@ -35,13 +35,13 @@
 定义：从发起请求到接收到来自服务器的第一个字节所消耗的时间。
 意义：TTFB 是衡量服务器响应速度的重要指标，较低的 TTFB 值意味着服务器响应速度快，用户可以更快地看到页面内容。
 
-![TTFB](../assets/images/performance/ttfb2.png)
+![TTFB](../../assets/images/performance/ttfb2.png)
 
 ### FCP（First Contentful Paint）
 
 定义：从页面开始加载到页面内容的任何一个部分在屏幕上渲染完成的时间。
 意义：这是用户感知“页面开始加载”的第一个信号。首次内容绘制时间和最大内容绘制时间 (LCP)，后者旨在衡量网页的主要内容何时加载完毕，这个是首个内容。
-![FCP](../assets/images/performance/fcp.png)
+![FCP](../../assets/images/performance/fcp.png)
 
 ### TTI（Time To Interactive）
 
@@ -53,13 +53,13 @@
 ### Lighthouse
 
 - [Lighthouse](https://developers.google.com/web/tools/lighthouse)集成在 Chrome DevTools 中的工具，这款工具针对性能、无障碍、SEO 等方面的评估网站，并给出优化建议。
-  ![Lighthouse](../assets/images/performance/lighthouse.png)
-  ![Lighthouse](../assets/images/performance/lighthouse2.png)
+  ![Lighthouse](../../assets/images/performance/lighthouse.png)
+  ![Lighthouse](../../assets/images/performance/lighthouse2.png)
 
 - [Chrome DevTools Performance 面板](https://developer.chrome.com/docs/devtools/performance/overview?hl=zh-cn)也集成在 Chrome DevTools 中，可以查看性能指标。
-  ![Performance](../assets/images/performance/performance.png)
+  ![Performance](../../assets/images/performance/performance.png)
 - [WebPageTest](https://www.webpagetest.org/) 通过在页面的搜索框输入网址就会自动进行性能测试，并给出详细的性能报告。
-  ![webpagetest](../assets/images/performance/webpagetest.png)
+  ![webpagetest](../../assets/images/performance/webpagetest.png)
 
 - [Sentry](https://sentry.io/for/javascript/) 是一个开源的实时性能与埋点、错误追踪工具，可以集成到前端项目中，实时监控前端错和性能等，并给出报告。
 
@@ -67,7 +67,7 @@
 
 浏览器提供了 `performanceNavigationTiming`对象，从页面导航开始一直到 load 事件结束，中间经历过程的耗时信息。
 比如：`performanceNavigationTiming.domInteractive` 可以获取到 DOM 解析完成的时间，`performanceNavigationTiming.loadEventEnd` 可以获取到页面加载完成的时间。下面图中
-![TTFB](../assets/images/performance/ttfb.png)
+![TTFB](../../assets/images/performance/ttfb.png)
 
 ```js
 const performanceTiming = performance.getEntriesByType("navigation")[0];
@@ -137,10 +137,10 @@ observer.observe({ entryTypes: ["longtask"] });
 ## Perfomance 面板
 
 在开启 Performance 面板之前最好是在无痕浏览器，尽可能减少浏览器插件和缓存对页面的影响。
-![Performance](../assets/images/performance/performance.png)
+![Performance](../../assets/images/performance/performance.png)
 当打开 Performance 面板时，它会立即捕获并显示页面的 LCP、CLS，当和页面产生交互后，就会触发 INP。
 在这三个指标卡片下方，有捕获的 LCP 的 DOM，CLS 的 dom 以及 INP 的交互元素，点击这些元素，会跳转到对应的 DOM ，方便我们查看这些元素。
-![performance](../assets/images/performance/performance2.png)
+![performance](../../assets/images/performance/performance2.png)
 
 ### 记录运行时性能
 
@@ -156,11 +156,11 @@ observer.observe({ entryTypes: ["longtask"] });
 3. 页面加载完成后，你可以查看加载性能数据。
 
 记录完成后 DevTools 会自动放大录制中活动最频繁的部分。
-![performance](../assets/images/performance/performance3.png)
+![performance](../../assets/images/performance/performance3.png)
 
 ### 认识性能记录
 
-![performance](../assets/images/performance/performance4.png)
+![performance](../../assets/images/performance/performance4.png)
 在左侧 Insights 标签页可以看到 LCP、INP、CLS 三个核心指标，下方展开的是可以优化的项目，已通过的数据分析会折叠起来。
 右侧 Annotations 是做标记的，可以在 主要（main） 图表中为跟踪记录添加注释，也可以关联两个跟踪记录，方便他人查看。
 右侧面板上有 Network、Frames、Animations、Timings、Layout shifts、Main、Thread pool、GPU。
