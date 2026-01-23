@@ -1,6 +1,6 @@
 # React源码分析
 基于 react 18 版本
-## 环境准备
+<!-- ## 环境准备
 新建一个项目
 
 ### 依赖
@@ -33,7 +33,6 @@
 ```
 
 ### 目录
-<!-- 这是一张图片，ocr 内容为： -->
 ![](../../assets/images/react/sourceCode/1.png)
 
 ### webpack配置
@@ -111,7 +110,7 @@ module.exports = {
     "src/**/*.json"
   ]
 }
-```
+``` -->
 
 ## React 中几种关键的数据结构
 ### Element 对象
