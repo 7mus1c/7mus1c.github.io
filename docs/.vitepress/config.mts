@@ -39,6 +39,8 @@ export default defineConfig({
           collapsed: false,
           items: [
             { text: "基础用法", link: "/vue/" },
+            { text: "router", link: "/vue/router" },
+            { text: "pinia", link: "/vue/pinia" },
             { text: "源码分析", link: "/vue/sourceCode" },
           ],
         },
