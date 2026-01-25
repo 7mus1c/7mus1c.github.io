@@ -33,6 +33,11 @@ export default defineConfig({
     ],
 
     sidebar: {
+      "/network/": [
+        { text: "http 上", link: "/network/" },
+        { text: "http 下", link: "/network/http2" },
+        { text: "http与反向代理", link: "/network/http3" },
+      ],
       "/vue/": [
         {
           text: "Vue",
@@ -106,6 +111,8 @@ export default defineConfig({
           items: [
             { text: "webpack", link: "/engineering/webpack" },
             { text: "vite", link: "/engineering/vite" },
+            { text: "脚手架", link: "/engineering/cli" },
+            { text: "部署", link: "/engineering/deploy" },
             { text: "monorepo", link: "/engineering/monorepo" },
           ],
         },
