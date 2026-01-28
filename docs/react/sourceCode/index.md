@@ -216,7 +216,7 @@ Element 对象实际是下面这样
 _owner 是 React 内部用来追踪当前元素的创建者（所属组件） 的引用，它指向的是创建这个 React 元素的组件实例（Fiber 节点）。
 _store 是 React 为元素对象预留的内部状态存储容器，作用是临时存储内部状态。
 
-在 react 中 element 的类型生命文件
+在 react 中 element 的类型声明文件
 
 ```tsx
 export type Type = any;
