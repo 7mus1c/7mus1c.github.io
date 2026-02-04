@@ -29,7 +29,7 @@ Node服务更推荐使用阿里云，更专业，文档详细，坑少。
 
 但是项目需要发布上线，是需要部署在域名下的。
 
-比如通过 https://www.baidu.com 进行访问。
+比如通过 "https://www.baidu.com" 进行访问。
 
 因为想要玩好自动化部署，前提需要把主流云提供的产品玩会。
 
@@ -38,7 +38,7 @@ COS 是一种存储海量文件的分布式存储服务。它具有高扩展性�
 
 说白了对象存储就是私人网盘，上传静态资源，就可以生成一个链接直接下载或查看。
 
-例如：https://lc-react-web-static-1302623844.cos.ap-beijing.myqcloud.com/2.png
+例如："https://lc-react-web-static-1302623844.cos.ap-beijing.myqcloud.com/2.png"
 
 建议选择公有读，私有写。
 
@@ -58,7 +58,7 @@ CND（内容分发网络）它是一种用于加速内容分发的网络服务�
 <!-- 这是一张图片，ocr 内容为： -->
 ![](../../assets/images/engineering/deploy/1.png)
 
-## 为什么访问http://localhost:3000/可以显示页面
+## 为什么访问 `http://localhost:3000/` 可以显示页面
 <!-- 这是一张图片，ocr 内容为： -->
 ![](../../assets/images/engineering/deploy/2.png)
 
@@ -69,7 +69,7 @@ html想要发布到线上，实际上只需要一个服务，能够访问我们�
 ## 生成文件
 直接打包的 dist 目录 html 是跑不起来的，因为路径是绝对路径，html访问不到资源。
 
-通过 publicpath改成 ./ 或者 源站地址 https://lc-react-web-static-1302623844.cos.ap-beijing.myqcloud.com
+通过 publicpath改成 ./ 或者 源站地址 "https://lc-react-web-static-1302623844.cos.ap-beijing.myqcloud.com"
 
 改成 ./ 就可以本地访问静态资源，改成源站地址就可以远程访问。
 
@@ -105,7 +105,7 @@ html想要发布到线上，实际上只需要一个服务，能够访问我们�
 3. 访问
 
 ### 步骤
-1. 首先在 https://coding.net/ 创建项目，
+1. 首先在 "https://coding.net/" 创建项目，
 2. 然后创建 git 仓库
 3. 再创建构建计划
 4. 配置触发规则
