@@ -29,7 +29,8 @@ export default defineConfig({
       { text: "工程化", link: "/engineering/", activeMatch: "^/engineering/" },
       { text: "算法", link: "/algorithm/", activeMatch: "^/algorithm/" },
       { text: "面试题", link: "/interview/", activeMatch: "^/interview/" },
-      { text: "Ai", link: "/ai/", activeMatch: "^/ai/" },
+      { text: "Ai Agent", link: "/ai/", activeMatch: "^/ai/" },
+      { text: "Python", link: "/python/", activeMatch: "^/python/" },
     ],
 
     sidebar: {
@@ -140,6 +141,13 @@ export default defineConfig({
         {
           text: "Ai",
           items: [{ text: "基本概念", link: "/ai/" }],
+        },
+        {
+          text: "Agent",
+          items: [
+            { text: "Agent", link: "/ai/agent" },
+            { text: "LLM原理", link: "/ai/agent/LLM" },
+          ],
         },
       ],
     },
