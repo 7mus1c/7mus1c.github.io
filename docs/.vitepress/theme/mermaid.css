@@ -1,0 +1,32 @@
+.mermaid-wrapper {
+  margin: 24px 0;
+  padding: 20px 16px;
+  overflow-x: auto;
+  border: 1px solid var(--vp-c-divider, #e2e2e3);
+  border-radius: 8px;
+  background-color: var(--vp-c-bg-soft, #f6f6f7);
+  text-align: center;
+}
+
+.mermaid-wrapper pre.mermaid {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  white-space: pre;
+  overflow: visible;
+}
+
+.mermaid-wrapper pre.mermaid svg {
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+}
+
+.mermaid-wrapper pre.mermaid[data-processed="true"] {
+  white-space: normal;
+}

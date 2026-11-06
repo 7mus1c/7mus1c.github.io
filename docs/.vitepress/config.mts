@@ -5,6 +5,26 @@ export default defineConfig({
   title: "李程Lc",
   description: "一个有点作用的博客",
   base: "/",
+  // VitePress 默认不渲染 mermaid：把 ```mermaid 代码块原样输出为
+  // <pre class="mermaid">，交给主题里的 mermaid 在浏览器端绘制。
+  // 这里必须放在 markdown.config（最后执行的钩子）里，才能绕过
+  // VitePress 自带的 shiki 高亮与代码块 wrapper。
+  markdown: {
+    config(md) {
+      const fence = md.renderer.rules.fence;
+      md.renderer.rules.fence = (...args) => {
+        const [tokens, idx] = args;
+        const token = tokens[idx];
+        const lang = token.info.trim().split(/\s+/, 1)[0];
+        if (lang !== "mermaid") {
+          return fence ? fence(...args) : "";
+        }
+        return `<div class="mermaid-wrapper"><pre class="mermaid" v-pre>${md.utils.escapeHtml(
+          token.content
+        )}</pre></div>\n`;
+      };
+    },
+  },
   themeConfig: {
     logo: "https://vitepress.dev/vitepress-logo-mini.svg",
     // https://vitepress.dev/reference/default-theme-config
