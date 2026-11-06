@@ -147,6 +147,10 @@ export default defineConfig({
           items: [
             { text: "Agent", link: "/ai/agent" },
             { text: "LLM原理", link: "/ai/agent/LLM" },
+            { text: "LLM API", link: "/ai/agent/LLM_API" },
+            { text: "RAG原理", link: "/ai/agent/RAG" },
+            { text: "langchain", link: "/ai/agent/langchain" },
+            { text: "langgraph", link: "/ai/agent/langgraph" },
           ],
         },
       ],
