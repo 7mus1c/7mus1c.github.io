@@ -3,7 +3,7 @@ import { defineConfig } from "vitepress";
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "李程Lc",
-  description: "一个有点作用的博客",
+  description: "一个开发者的学习笔记",
   base: "/",
   // VitePress 默认不渲染 mermaid：把 ```mermaid 代码块原样输出为
   // <pre class="mermaid">，交给主题里的 mermaid 在浏览器端绘制。
@@ -29,28 +29,42 @@ export default defineConfig({
     logo: "https://vitepress.dev/vitepress-logo-mini.svg",
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: "JS必知", link: "/js/" },
-      { text: "CSS必知", link: "/css/" },
-      { text: "浏览器", link: "/browser/" },
-      { text: "网络", link: "/network/" },
-      { text: "Vue", link: "/vue/", activeMatch: "^/vue/" },
-      { text: "React", link: "/react/", activeMatch: "^/react/" },
       {
-        text: "TypeScript",
-        link: "/typescript/",
-        activeMatch: "^/typescript/",
+        text: "前端",
+        items: [
+          { text: "JS必知", link: "/js/" },
+          { text: "CSS必知", link: "/css/" },
+          { text: "TypeScript", link: "/typescript/" },
+          { text: "Vue", link: "/vue/" },
+          { text: "React", link: "/react/" },
+          { text: "Node", link: "/node/" },
+          { text: "性能优化", link: "/performance/" },
+          { text: "工程化", link: "/engineering/" },
+          { text: "面试题", link: "/interview/" },
+        ],
       },
-      { text: "Node", link: "/node/", activeMatch: "^/node/" },
       {
-        text: "性能优化",
-        link: "/performance/",
-        activeMatch: "^/performance/",
+        text: "计算机基础",
+        items: [
+          { text: "网络", link: "/network/" },
+          { text: "浏览器", link: "/browser/" },
+          { text: "算法", link: "/algorithm/" },
+        ],
       },
-      { text: "工程化", link: "/engineering/", activeMatch: "^/engineering/" },
-      { text: "算法", link: "/algorithm/", activeMatch: "^/algorithm/" },
-      { text: "面试题", link: "/interview/", activeMatch: "^/interview/" },
-      { text: "Ai Agent", link: "/ai/", activeMatch: "^/ai/" },
-      { text: "Python", link: "/python/", activeMatch: "^/python/" },
+      {
+        text: "AI & Python",
+        items: [
+          { text: "AI 基本概念", link: "/ai/" },
+          { text: "Agent 入门", link: "/ai/agent" },
+          { text: "LLM原理", link: "/ai/agent/LLM" },
+          { text: "LLM API", link: "/ai/agent/LLM_API" },
+          { text: "RAG原理", link: "/ai/agent/RAG" },
+          { text: "Langchain", link: "/ai/agent/langchain" },
+          { text: "Langgraph", link: "/ai/agent/langgraph" },
+          { text: "Agent测试与评估", link: "/ai/agent/agent_testing_evaluation" },
+          { text: "Python", link: "/python/" },
+        ],
+      },
     ],
 
     sidebar: {
