@@ -171,7 +171,7 @@ export default defineConfig({
             { text: "RAG原理", link: "/ai/agent/RAG" },
             { text: "Langchain", link: "/ai/agent/langchain" },
             { text: "Langgraph", link: "/ai/agent/langgraph" },
-            { text: "Agent测试与评估", link: "/ai/agent/agent_test_evaluation" },
+            { text: "Agent测试与评估", link: "/ai/agent/agent_testing_evaluation" },
           ],
         },
       ],
