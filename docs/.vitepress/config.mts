@@ -186,6 +186,7 @@ export default defineConfig({
             { text: "Langchain", link: "/ai/agent/langchain" },
             { text: "Langgraph", link: "/ai/agent/langgraph" },
             { text: "Agent测试与评估", link: "/ai/agent/agent_testing_evaluation" },
+            { text: "Agent 原理与手写实现", link: "/ai/agent/agent_principle" },
           ],
         },
       ],

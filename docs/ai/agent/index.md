@@ -17,7 +17,7 @@ AI 应用，就是把一个"训练好的 AI 模型"当成核心能力引擎，�
 ## 主流大模型
 
 - GPT
-- Claude Code
+- Claude
 - Gemini
 - DeepSeek
 - GLM
@@ -79,7 +79,7 @@ LLM 在 AI 应用里是"理解 + 推理 + 生成 + 调度"的中枢控制器；�
 
 底层原理相似，但是格式和效果天差地别。
 
-**Prompt 必须根据模型去做微调**。绝对不能把给 GTP 的 Prompt 直接拿给 Claude 或者 DeepSeek 直接去用。
+**Prompt 必须根据模型去做微调**。通常需要针对模型调整调整，不建议把给 GPT 的 Prompt 直接拿给 Claude 或者 DeepSeek 直接去用。
 
 ## Function Call
 
@@ -197,7 +197,7 @@ Agent 只要支持 MCP 协议，不需要写一行针对 MySQL 或者 GitHub 的
 
 ### 为什么 RAG 需要用向量数据库
 
-因为有些时候 LLM 的模糊搜索并不精确，所以需要精准搜索两者相结合，才能正确回复提问。而且有些时候 LLM 并没有内部数据，所以需要给 LLM 补充内部文件，数据。
+LLM 不知道私有数据，需要先语义检索出相关片段；向量检索擅长语义匹配，MB25 擅长关键词精确匹配，所以生产中常混合使用。
 
 ## Langchain
 

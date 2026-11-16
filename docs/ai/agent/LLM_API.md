@@ -1537,7 +1537,7 @@ data = json.loads(response.choices[0].message.content)
 
 Chat Completions 通常需要应用自己管理对话历史；Responses API 则支持通过 `previous_response_id` 或 Conversations API 延续上下文。可以简单理解为 Chat Completions 没有状态，但是 Responses 是有状态的。
 
-所以在日常 Agent 开发中，一般都使用 Responses API。
+所以在日常 Agent 开发中，OpenAI 推荐新项目用 Responses，但兼容接口以各家支持情况为准
 
 ### 核心差异对照
 
