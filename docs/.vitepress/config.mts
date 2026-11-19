@@ -54,6 +54,7 @@ export default defineConfig({
       {
         text: "AI & Python",
         items: [
+          { text: "Python", link: "/python/" },
           { text: "AI 基本概念", link: "/ai/" },
           { text: "Agent 入门", link: "/ai/agent" },
           { text: "LLM原理", link: "/ai/agent/LLM" },
@@ -62,7 +63,9 @@ export default defineConfig({
           { text: "Langchain", link: "/ai/agent/langchain" },
           { text: "Langgraph", link: "/ai/agent/langgraph" },
           { text: "Agent测试与评估", link: "/ai/agent/agent_testing_evaluation" },
-          { text: "Python", link: "/python/" },
+          { text: "Deep Agents", link: "/ai/agent/deep_agents" },
+          { text: "Agent 原理与手写实现", link: "/ai/agent/agent_principle_numbered" },
+          { text: "RAG工程深度实践", link: "/ai/agent/RAG_Engineering_Depth" },
         ],
       },
     ],
@@ -188,6 +191,7 @@ export default defineConfig({
             { text: "Agent测试与评估", link: "/ai/agent/agent_testing_evaluation" },
             { text: "Deep Agents", link: "/ai/agent/deep_agents" },
             { text: "Agent 原理与手写实现", link: "/ai/agent/agent_principle_numbered" },
+            { text: "RAG工程深度实践", link: "/ai/agent/RAG_Engineering_Depth" },
           ],
         },
       ],
